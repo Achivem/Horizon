@@ -7,6 +7,7 @@ const routerShip = require("./routes/routesShip");
 const routerUser = require("./routes/routesUser");
 const routerAuth = require("./routes/routesAuth");
 const errorHandler = require("./middlewares/errorHandler");
+require("./models/Associations");
 
 const app = express();
 app.use(cors());

@@ -1,4 +1,7 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const Ship = require("../models/Ship");
+const { createShip } = require("../controllers/shipController");
 
 const userGetAll = async (req, res, next) => {
   try {
@@ -24,15 +27,17 @@ const createUser = async (req, res, next) => {
   try {
     const { name, email, password, birthdate, faction, balance, role } =
       req.body;
+    const hashed = await bcrypt.hash(password, 12);
     const user = await User.create({
       name,
       email,
-      password,
+      password: hashed,
       birthdate,
       faction,
       balance,
       role,
     });
+    createShip({ body: { captainId: user.id } });
     res.json(user);
   } catch (err) {
     next(err);
@@ -42,9 +47,12 @@ const createUser = async (req, res, next) => {
 const patchUser = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { password } = req.body;
+    const hashed = await bcrypt.hash(password, 12);
+    const hashedBody = { ...req.body, password: hashed };
     const user = await User.findByPk(id);
     if (!user) return res.status(404).json({ error: "Not found." });
-    await user.update(req.body);
+    await user.update(hashedBody);
     res.json(user);
   } catch (err) {
     next(err);

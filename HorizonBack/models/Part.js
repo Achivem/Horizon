@@ -36,7 +36,7 @@ Part.init(
       },
     },
     icon: {
-      type: DataTypes.BLOB(medium),
+      type: DataTypes.BLOB("medium"),
       allowNull: false,
       validate: {
         notNull: { msg: "Icon is obligatory." },

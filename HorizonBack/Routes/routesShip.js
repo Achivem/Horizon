@@ -10,7 +10,7 @@ const {
   deleteShip,
 } = require("../controllers/shipController");
 
-const routerShip = express.router();
+const routerShip = Router();
 
 routerShip.get("/", verifyToken, shipGetAll);
 routerShip.get("/:id", verifyToken, getShipById);

@@ -10,7 +10,7 @@ const {
   deletePart,
 } = require("../controllers/partController");
 
-const routerPart = express.router();
+const routerPart = Router();
 
 routerPart.get("/", verifyToken, partGetAll);
 routerPart.get("/:id", verifyToken, getPartById);

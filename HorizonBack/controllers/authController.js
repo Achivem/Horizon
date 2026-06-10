@@ -1,10 +1,12 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Ship = require("../models/Ship");
+const { createShip } = require("../controllers/shipController");
 
 const register = async (req, res, next) => {
   try {
-    const { name, password, email, birthdate, faction };
+    const { name, password, email, birthdate, faction, isAdmin } = req.body;
     if (!username || !password || !email || !birthdate || !faction) {
       return res.status(400).json({ error: "All fields are obligatory." });
     }
@@ -13,13 +15,22 @@ const register = async (req, res, next) => {
       return res.status(400).json({ error: "This user already exists." });
     }
     const hashed = await bcrypt.hash(password, 12);
+    let role = "";
+    if (isAdmin) {
+      role = "Admin";
+    } else {
+      role = "Customer";
+    }
     const user = await User.create({
       name,
       password: hashed,
       email,
       birthdate,
       faction,
+      balance: 0,
+      role,
     });
+    createShip({ body: { captainId: user.id } });
     res
       .status(201)
       .json({ message: `Usuario ${user.name} created successfully.` });

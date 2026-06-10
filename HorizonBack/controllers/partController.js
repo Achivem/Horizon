@@ -22,7 +22,7 @@ const getPartById = async (req, res, next) => {
 
 const createPart = async (req, res, next) => {
   try {
-    const { name, value, stock, type, icon, description } = req.body;
+    const { name, value, stock, type, icon, description, userId } = req.body;
     const part = await Part.create({
       name,
       value,
@@ -30,6 +30,7 @@ const createPart = async (req, res, next) => {
       type,
       icon,
       description,
+      userId,
     });
     res.json(part);
   } catch (err) {

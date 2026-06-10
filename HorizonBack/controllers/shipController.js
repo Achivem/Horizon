@@ -22,13 +22,15 @@ const getShipById = async (req, res, next) => {
 
 const createShip = async (req, res, next) => {
   try {
-    const { cockpit, portWing, starboardWing, hull, thruster } = req.body;
+    const { cockpit, portWing, starboardWing, hull, thruster, captainId } =
+      req.body;
     const ship = await Ship.create({
       cockpit,
       portWing,
       starboardWing,
       hull,
       thruster,
+      captainId,
     });
     res.json(ship);
   } catch (err) {

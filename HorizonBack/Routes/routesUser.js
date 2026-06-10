@@ -10,7 +10,7 @@ const {
   deleteUser,
 } = require("../controllers/userController");
 
-const routerUser = express.router();
+const routerUser = Router();
 
 routerUser.get("/", verifyToken, userGetAll);
 routerUser.get("/:id", verifyToken, getUserById);
