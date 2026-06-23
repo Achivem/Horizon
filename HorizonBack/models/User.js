@@ -53,8 +53,8 @@ User.init(
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: [["Comet", "Nova", "Planet", "Quasar"]],
-          msg: "Type must be Comet, Nova, Planet or Quasar.",
+          args: [["Astra", "Nadir", "Terra", "Quasar"]],
+          msg: "Type must be Astra, Nadir, Terra or Quasar.",
         },
       },
     },

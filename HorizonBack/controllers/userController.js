@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const Ship = require("../models/Ship");
-const { createShip } = require("../controllers/shipController");
 
 const userGetAll = async (req, res, next) => {
   try {
@@ -37,7 +36,7 @@ const createUser = async (req, res, next) => {
       balance,
       role,
     });
-    createShip({ body: { captainId: user.id } });
+    Ship.create({ captainId: user.id });
     res.json(user);
   } catch (err) {
     next(err);

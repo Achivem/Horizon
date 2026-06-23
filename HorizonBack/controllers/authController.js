@@ -2,12 +2,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Ship = require("../models/Ship");
-const { createShip } = require("../controllers/shipController");
 
 const register = async (req, res, next) => {
   try {
     const { name, password, email, birthdate, faction, isAdmin } = req.body;
-    if (!username || !password || !email || !birthdate || !faction) {
+    if (!name || !password || !email || !birthdate || !faction) {
       return res.status(400).json({ error: "All fields are obligatory." });
     }
     const existing = await User.findOne({ where: { name } });
@@ -30,10 +29,10 @@ const register = async (req, res, next) => {
       balance: 0,
       role,
     });
-    createShip({ body: { captainId: user.id } });
+    Ship.create({ captainId: user.id });
     res
       .status(201)
-      .json({ message: `Usuario ${user.name} created successfully.` });
+      .json({ message: `User ${user.name} created successfully.` });
   } catch (err) {
     next(err);
   }
