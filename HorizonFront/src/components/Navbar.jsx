@@ -3,13 +3,26 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import logoutIcon from "../assets/Logout.png";
+import AstraIcon from "../assets/AstraIcon.png";
+import NadirIcon from "../assets/NadirIcon.png";
+import TerraIcon from "../assets/TerraIcon.png";
+import QuasarIcon from "../assets/QuasarIcon.png";
 
-function Navbar() {
+const FACTION_ICONS = {
+  Astra: AstraIcon,
+  Nadir: NadirIcon,
+  Terra: TerraIcon,
+  Quasar: QuasarIcon,
+};
+
+function Navbar({ title = "[ DASHBOARD ]" }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [tabName, setTabName] = useState("[ DASHBOARD ]");
+  const tabName = title;
   const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
   const name = useAuthStore((state) => state.name);
+  const faction = useAuthStore((state) => state.faction);
+  const factionIcon = FACTION_ICONS[faction];
 
   const handleLogoutClick = () => {
     setShowConfirmation(true);
@@ -28,6 +41,11 @@ function Navbar() {
     <div className="navbar-container">
       <div className="navbar-left">
         <div className="navbar-content">
+          {factionIcon && (
+            <div className="navbar-faction-icon">
+              <img src={factionIcon} alt={`${faction} faction`} />
+            </div>
+          )}
           <span className="navbar-text">{name}</span>
         </div>
       </div>

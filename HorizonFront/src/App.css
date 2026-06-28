@@ -187,7 +187,7 @@ body {
   outline: none;
 }
 
-.admin-page {
+.interact-page {
   background-image: url("./assets/GridBG.png");
   background-position: center center;
   background-repeat: repeat;
@@ -197,4 +197,56 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.admin-dashboard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.admin-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.admin-dashboard-row {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  align-items: flex-start;
+  --dashboard-panel-height: calc(280px + 1.85rem + 1rem + 1.25rem + 1.5rem);
+}
+
+.admin-dashboard-row .visits-chart-panel {
+  flex: 2;
+  width: auto;
+}
+
+.admin-dashboard-row .sales-card-panel {
+  height: calc(var(--dashboard-panel-height) * 2 / 3);
+}
+
+@media (max-width: 900px) {
+  .admin-cards-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard-row {
+    flex-direction: column;
+  }
+
+  .admin-dashboard-row .visits-chart-panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .admin-dashboard-row .sales-card-panel {
+    height: auto;
+  }
 }

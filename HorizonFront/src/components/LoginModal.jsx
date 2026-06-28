@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import eyeIcon from "../assets/eye.png";
 import eyeOffIcon from "../assets/eye-off.png";
 import useAuthStore from "../store/authStore";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoginModal(props) {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,7 +15,6 @@ function LoginModal(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
-  const loginError = [];
 
   const handleVisibilityToggle = () => {
     setShowPassword((prev) => !prev);
