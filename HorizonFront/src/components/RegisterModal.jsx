@@ -19,7 +19,10 @@ function RegisterModal(props) {
   const [selectedPassword, setSelectedPassword] = useState("");
   const [selectedBirthdate, setSelectedBirthdate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleVisibilityToggle = () => {
     setShowPassword((prev) => !prev);
@@ -35,12 +38,19 @@ function RegisterModal(props) {
         birthdate: selectedBirthdate,
         faction: selectedFaction,
       };
+      if (props.isAdmin) {
+        registerData.isAdmin = true;
+      }
       const res = await axios.post(
         "http://localhost:8000/auth/register",
         registerData,
       );
-      console.log(res);
-    } catch (err) {}
+      setConfirmationMessage(res.data.message);
+      setShowConfirmationModal(true);
+    } catch (err) {
+      setErrorMessage(err.response.data.error);
+      setShowErrorModal(true);
+    }
   };
 
   return (
@@ -162,6 +172,53 @@ function RegisterModal(props) {
           </div>
         </form>
       </Modal.Body>
+      <Modal
+        show={showConfirmationModal}
+        onHide={() => setShowConfirmationModal(false)}
+        size="sm"
+        centered
+      >
+        <Modal.Body>
+          <div className="confirmation-modal-content">
+            <p className="confirmation-message">{confirmationMessage}</p>
+            <button
+              type="button"
+              className="modal-submit-btn"
+              onClick={() => {
+                setShowConfirmationModal(false);
+                props.onHide();
+                if (props.onOpenLogin) {
+                  props.onOpenLogin();
+                }
+              }}
+            >
+              &gt; CONFIRM
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showErrorModal}
+        onHide={() => setShowErrorModal(false)}
+        size="sm"
+        centered
+        dialogClassName="error-modal"
+      >
+        <Modal.Body>
+          <div className="error-modal-content">
+            <p className="error-message">{errorMessage}</p>
+            <button
+              type="button"
+              className="error-modal-btn"
+              onClick={() => {
+                setShowErrorModal(false);
+              }}
+            >
+              &gt; TRY AGAIN
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Modal>
   );
 }

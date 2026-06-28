@@ -54,10 +54,33 @@ const login = async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: "2h" },
     );
-    res.json({ token, name: user.name, faction: user.faction });
+    res.json({
+      token,
+      name: user.name,
+      faction: user.faction,
+      role: user.role,
+    });
   } catch (err) {
     next(err);
   }
 };
 
-module.exports = { register, login };
+const validate = async (req, res, next) => {
+  try {
+    const { accessCode } = req.body;
+    if (accessCode === process.env.ACCESS_CODE) {
+      return res.status(200).json({
+        success: true,
+        message: "Access granted.",
+      });
+    } else {
+      return res.status(401).json({
+        error: "Invalid.",
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { register, login, validate };

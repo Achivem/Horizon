@@ -1,13 +1,21 @@
 import "./Modal.css";
 import { useState } from "react";
+import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import eyeIcon from "../assets/eye.png";
 import eyeOffIcon from "../assets/eye-off.png";
+import useAuthStore from "../store/authStore";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function LoginModal(props) {
   const [showPassword, setShowPassword] = useState(false);
-  const [userEmail, setUserEmail] = useState(false);
-  const [userPassword, setUserPassword] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+  const loginError = [];
 
   const handleVisibilityToggle = () => {
     setShowPassword((prev) => !prev);
@@ -16,7 +24,7 @@ function LoginModal(props) {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const loginata = {
+      const loginData = {
         email: userEmail,
         password: userPassword,
       };
@@ -24,8 +32,17 @@ function LoginModal(props) {
         "http://localhost:8000/auth/login",
         loginData,
       );
-      console.log(res);
-    } catch (err) {}
+      login(res.data.token, res.data.name, res.data.faction);
+      if (res.data.role == "Admin") {
+        navigate("/Dash");
+      }
+      if (res.data.role == "Customer") {
+        navigate("/Station");
+      }
+    } catch (err) {
+      setErrorMessage(err.response.data.error);
+      setShowErrorModal(true);
+    }
   };
 
   return (
@@ -36,7 +53,7 @@ function LoginModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form className="modal-form">
+        <form className="modal-form" onSubmit={handleLoginSubmit}>
           <div className="modal-form-row">
             <label className="modal-form-label" htmlFor="login-email">
               &gt; Email:
@@ -88,6 +105,28 @@ function LoginModal(props) {
           </div>
         </form>
       </Modal.Body>
+      <Modal
+        show={showErrorModal}
+        onHide={() => setShowErrorModal(false)}
+        size="sm"
+        centered
+        dialogClassName="error-modal"
+      >
+        <Modal.Body>
+          <div className="error-modal-content">
+            <p className="error-message">{errorMessage}</p>
+            <button
+              type="button"
+              className="error-modal-btn"
+              onClick={() => {
+                setShowErrorModal(false);
+              }}
+            >
+              &gt; TRY AGAIN
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Modal>
   );
 }

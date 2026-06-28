@@ -161,3 +161,65 @@
 .modal-backdrop.show {
   background-color: #000000bf !important;
 }
+
+.confirmation-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.confirmation-message {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+  color: #00ff33;
+}
+
+.error-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+  color: #d3080f;
+}
+
+.error-modal-btn {
+  background-color: transparent;
+  color: #d3080f;
+  border: none;
+  font-family: pixelmplus12-regular, sans-serif;
+  font-size: 1.5rem;
+  padding: 0rem 1.5rem;
+  cursor: pointer;
+  transition: text-shadow 0.2s ease;
+}
+
+.error-modal-btn:hover,
+.error-modal-btn:focus {
+  text-shadow:
+    0 0 0.2px #fff,
+    0 0 12px #d3080f,
+    0 0 50px #d3080f;
+}
+
+.error-modal-btn:active {
+  text-shadow:
+    0 0 0.2px #fff,
+    0 0 12px #d3080f,
+    0 0 50px #d3080f;
+}
+
+.error-modal .modal-content {
+  border-color: #d3080f !important;
+}
