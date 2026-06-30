@@ -14,7 +14,6 @@ function ProductCrud({ onPartsChange }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  // Form states
   const [editId, setEditId] = useState(null);
   const [name, setName] = useState("");
   const [value, setValue] = useState("");

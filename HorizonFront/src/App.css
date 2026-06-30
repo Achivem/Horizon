@@ -33,6 +33,29 @@ body {
   font-family: pixelmplus12-regular, sans-serif;
 }
 
+.station-btn {
+  background-color: #09160d;
+  color: #75f387;
+  border: 2px solid #75f387;
+  border-radius: 0;
+  font-family: pixelmplus12-regular, sans-serif;
+  padding: 0.75rem, 2rem;
+  font-size: 3.3rem;
+  cursor: pointer;
+  width: 100%;
+  min-height: 8rem;
+}
+
+.station-btn:hover,
+.station-btn:focus,
+.station-btn.dropdown-toggle {
+  background-color: #09160d;
+  border: 2px solid #75f387;
+  color: #75f387;
+  text-shadow: 0 0 6px #75f387;
+  transform: scale(1.02);
+}
+
 .custom-btn:hover,
 .custom-btn:focus,
 .custom-btn.dropdown-toggle {
@@ -208,6 +231,15 @@ body {
   width: 100%;
 }
 
+.userPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  width: 100%;
+}
+
 .admin-cards-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -249,4 +281,12 @@ body {
   .admin-dashboard-row .sales-card-panel {
     height: auto;
   }
+}
+
+.user-dashboard-row {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  align-items: flex-start;
+  --dashboard-panel-height: calc(280px + 1.85rem + 1rem + 1.25rem + 1.5rem);
 }

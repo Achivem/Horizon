@@ -29,4 +29,5 @@ async function main() {
   );
 }
 
+//Utilize npx sequelize db:seed:all to run seeders
 main();

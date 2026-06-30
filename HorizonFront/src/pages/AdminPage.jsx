@@ -1,12 +1,13 @@
 import "../App.css";
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuthStore from "../store/authStore";
 import Navbar from "../components/Navbar";
 import NumberCard from "../components/NumberCard";
 import VisitsChart from "../components/VisitsChart";
 import SalesCard from "../components/SalesCard";
-import Tab from "../components/Tab";
+import AdminTab from "../components/AdminTab";
 import ProductCrud from "../components/ProductCrud";
 import PeopleIcon from "../assets/People.png";
 import SalesIcon from "../assets/Sales.png";
@@ -31,6 +32,7 @@ const partMarketData = [
 ];
 
 function AdminPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("DASH");
   const [parts, setParts] = useState([]);
   const token = useAuthStore((state) => state.token);
@@ -70,7 +72,7 @@ function AdminPage() {
     <div className="interact-page">
       <Navbar title={activeTab === "DASH" ? "[ DASHBOARD ]" : "[ PRODUCT ]"} />
       <main className="admin-dashboard">
-        <Tab activeTab={activeTab} onTabChange={setActiveTab} />
+        <AdminTab activeTab={activeTab} onTabChange={setActiveTab} />
 
         {activeTab === "DASH" ? (
           <>
@@ -96,7 +98,24 @@ function AdminPage() {
             </div>
             <div className="admin-dashboard-row">
               <VisitsChart data={siteVisitsData} />
-              <SalesCard data={partMarketData} />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1.25rem",
+                  flex: 1,
+                  minWidth: 0,
+                }}
+              >
+                <SalesCard data={partMarketData} />
+                <button
+                  type="button"
+                  className="station-btn"
+                  onClick={() => navigate("/Station")}
+                >
+                  &gt; GO TO STATION
+                </button>
+              </div>
             </div>
           </>
         ) : (
