@@ -1,0 +1,63 @@
+.credits-pack-row {
+  margin-top: 4rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.credit-pack {
+  flex: 1;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+  border: 2px solid #75f38755;
+  background-color: #09160d;
+  box-shadow: 0 0 15px rgba(117, 243, 135, 0.05);
+}
+
+.credit-pack-icon {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.credit-pack-value {
+  font-family: pixelmplus12-regular, sans-serif;
+  font-size: 3rem;
+  color: #00ff33;
+  text-shadow: 0 0 10px rgba(0, 255, 51, 0.4);
+  line-height: 1;
+}
+
+.credit-pack-unit {
+  font-family: pixelmplus12-regular, sans-serif;
+  font-size: 1rem;
+  color: #75f38788;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5rem;
+}
+
+.credit-buy-btn {
+  background-color: #000;
+  border: 2px solid #00ff33;
+  color: #00ff33;
+  font-family: pixelmplus12-regular, sans-serif;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.credit-buy-btn:hover:not(:disabled) {
+  background-color: #00ff33;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 51, 0.5);
+}

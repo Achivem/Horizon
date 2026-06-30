@@ -436,6 +436,67 @@
   min-height: 35rem;
 }
 
+.store-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  padding: 0.75rem;
+  margin: -0.75rem -0.75rem 0;
+  border-bottom: 1px solid #75f38733;
+}
+
+.store-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.store-balance {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: pixelmplus12-regular, sans-serif;
+}
+
+.balance-label {
+  font-size: 0.85rem;
+  color: #75f38788;
+  letter-spacing: 0.1em;
+}
+
+.balance-value {
+  font-size: 1.4rem;
+  color: #00ff33;
+  font-family: pixelmplus12-regular, sans-serif;
+  text-shadow: 0 0 8px rgba(0, 255, 51, 0.4);
+}
+
+.filter-select {
+  background-color: #000;
+  border: 1px solid #75f38755;
+  color: #75f387;
+  font-family: pixelmplus12-regular, sans-serif;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+  min-width: 130px;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+  border-color: #00ff33;
+}
+
+.filter-select option {
+  background-color: #000;
+  color: #75f387;
+}
+
 .userpart-icon-box {
   width: 98px;
   height: 98px;
@@ -451,14 +512,70 @@
     border-color 0.3s;
 }
 
-.userpart-icon-box:hover {
-  border-color: #00ff33;
-  box-shadow: 0 0 8px #00ff33;
+.userpart-icon-box.type-cockpit {
+  border-color: #00bfff;
+  box-shadow: 0 0 4px rgba(0, 191, 255, 0.3);
 }
 
-.userpart-icon-box.active {
+.userpart-icon-box.type-cockpit:hover {
+  border-color: #00bfff;
+  box-shadow: 0 0 8px #00bfff;
+}
+
+.userpart-icon-box.type-cockpit.active {
+  border-color: #00bfff;
   box-shadow:
-    0 0 12px #00ff33,
-    0 0 8px #00ff33 inset;
-  border-color: #00ff33;
+    0 0 12px #00bfff,
+    0 0 8px #00bfff inset;
+}
+
+.userpart-icon-box.type-wing {
+  border-color: #ffcc00;
+  box-shadow: 0 0 4px rgba(255, 204, 0, 0.3);
+}
+
+.userpart-icon-box.type-wing:hover {
+  border-color: #ffcc00;
+  box-shadow: 0 0 8px #ffcc00;
+}
+
+.userpart-icon-box.type-wing.active {
+  border-color: #ffcc00;
+  box-shadow:
+    0 0 12px #ffcc00,
+    0 0 8px #ffcc00 inset;
+}
+
+.userpart-icon-box.type-hull {
+  border-color: #ff3b30;
+  box-shadow: 0 0 4px rgba(255, 59, 48, 0.3);
+}
+
+.userpart-icon-box.type-hull:hover {
+  border-color: #ff3b30;
+  box-shadow: 0 0 8px #ff3b30;
+}
+
+.userpart-icon-box.type-hull.active {
+  border-color: #ff3b30;
+  box-shadow:
+    0 0 12px #ff3b30,
+    0 0 8px #ff3b30 inset;
+}
+
+.userpart-icon-box.type-thruster {
+  border-color: #da70d6;
+  box-shadow: 0 0 4px rgba(218, 112, 214, 0.3);
+}
+
+.userpart-icon-box.type-thruster:hover {
+  border-color: #da70d6;
+  box-shadow: 0 0 8px #da70d6;
+}
+
+.userpart-icon-box.type-thruster.active {
+  border-color: #da70d6;
+  box-shadow:
+    0 0 12px #da70d6,
+    0 0 8px #da70d6 inset;
 }

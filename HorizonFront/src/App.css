@@ -283,6 +283,13 @@ body {
   }
 }
 
+.ship-layout {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
 .user-dashboard-row {
   display: flex;
   gap: 1.25rem;

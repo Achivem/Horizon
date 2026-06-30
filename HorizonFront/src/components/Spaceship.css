@@ -1,0 +1,73 @@
+.spaceship-panel {
+  flex: 3;
+  background-color: #09160d;
+  border: 2px solid #75f38755;
+  padding: 1.5rem;
+  box-shadow: 0 0 15px rgba(117, 243, 135, 0.05);
+  position: relative;
+  overflow: hidden;
+  min-height: 34rem;
+}
+
+.spaceship-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.spaceship-content {
+  position: relative;
+  z-index: 1;
+}
+
+.spaceship-title {
+  font-family: Silver, sans-serif;
+  font-size: 2.2rem;
+  color: #75f387;
+  border-bottom: 1px solid #75f38733;
+  padding-bottom: 0.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.ship-slots-grid {
+  display: grid;
+  grid-template-columns: 98px 98px 98px;
+  grid-template-rows: 98px 98px 98px;
+  column-gap: 98px;
+  row-gap: 1.5rem;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.ship-slot {
+  width: 98px;
+  height: 98px;
+  border: 2px dashed #75f38755;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+.ship-slot-star-wing {
+  grid-column: 2;
+  grid-row: 1;
+}
+.ship-slot-cockpit {
+  grid-column: 1;
+  grid-row: 2;
+}
+.ship-slot-hull {
+  grid-column: 2;
+  grid-row: 2;
+}
+.ship-slot-thruster {
+  grid-column: 3;
+  grid-row: 2;
+}
+.ship-slot-port-wing {
+  grid-column: 2;
+  grid-row: 3;
+}

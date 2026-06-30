@@ -1,10 +1,12 @@
 import "../App.css";
 import { useState } from "react";
-import axios from "axios";
 import useAuthStore from "../store/authStore";
 import Navbar from "../components/Navbar";
 import UserTab from "../components/UserTab";
 import PartsView from "../components/PartsView";
+import Spaceship from "../components/Spaceship";
+import Inventory from "../components/Inventory";
+import CreditsCard from "../components/CreditsCard";
 
 function UserPage() {
   const [activeTab, setActiveTab] = useState("STORE");
@@ -28,9 +30,12 @@ function UserPage() {
             <PartsView></PartsView>
           </>
         ) : activeTab === "SHIP" ? (
-          <div></div>
+          <div className="ship-layout">
+            <Spaceship />
+            <Inventory />
+          </div>
         ) : (
-          <div></div>
+          <CreditsCard />
         )}
       </main>
     </div>

@@ -8,6 +8,9 @@ function PartsView() {
   const token = useAuthStore((state) => state.token);
   const [parts, setParts] = useState([]);
   const [selectedPart, setSelectedPart] = useState(null);
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [valueRange, setValueRange] = useState("All");
+  const [balance, setBalance] = useState(null);
 
   useEffect(() => {
     axios
@@ -23,6 +26,32 @@ function PartsView() {
         console.error("Error fetching parts:", error);
       });
   }, [token]);
+
+  useEffect(() => {
+    if (!token) return;
+    const payload = getTokenPayload(token);
+    if (!payload) return;
+    axios
+      .get(`http://localhost:8000/user/${payload.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => setBalance(res.data.balance))
+      .catch((err) => console.error("Error fetching balance:", err));
+  }, [token]);
+
+  const partTypes = [...new Set(parts.map((p) => p.type))];
+
+  const filteredParts = parts.filter((part) => {
+    if (typeFilter !== "All" && part.type !== typeFilter) return false;
+    if (valueRange !== "All") {
+      const v = Number(part.value);
+      if (valueRange === "0-100" && (v < 0 || v > 100)) return false;
+      if (valueRange === "100-500" && (v < 100 || v > 500)) return false;
+      if (valueRange === "500-1000" && (v < 500 || v > 1000)) return false;
+      if (valueRange === "1000+" && v < 1000) return false;
+    }
+    return true;
+  });
 
   const handleIconClick = (part) => {
     setSelectedPart(part);
@@ -58,17 +87,48 @@ function PartsView() {
     <div className="crud-panel-container">
       <div className="part-layout">
         <div className="store-section">
+          <div className="store-filter-bar">
+            <div className="store-filters">
+              <select
+                className="filter-select"
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+              >
+                <option value="All">All Types</option>
+                {partTypes.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="filter-select"
+                value={valueRange}
+                onChange={(e) => setValueRange(e.target.value)}
+              >
+                <option value="All">All Values</option>
+                <option value="0-100">0 - 100</option>
+                <option value="100-500">100 - 500</option>
+                <option value="500-1000">500 - 1,000</option>
+                <option value="1000+">1,000+</option>
+              </select>
+            </div>
+            <div className="store-balance">
+              <span className="balance-label">CREDITS:</span>
+              <span className="balance-value">
+                {balance?.toLocaleString() ?? "—"}
+              </span>
+            </div>
+          </div>
           {parts.length === 0 ? (
             <div className="terminal-loading">Loading parts...</div>
           ) : (
             <div className="part-icons-grid">
-              {parts.map((part) => {
-                console.log("part.icon:", part.icon);
-                console.log("type:", typeof part.icon);
+              {filteredParts.map((part) => {
                 return (
                   <div
                     key={part.id}
-                    className={`userpart-icon-box ${selectedPart?.id === part.id ? "active" : ""}`}
+                    className={`userpart-icon-box type-${part.type.toLowerCase()} ${selectedPart?.id === part.id ? "active" : ""}`}
                     onClick={() => handleIconClick(part)}
                     style={{ cursor: "pointer" }}
                   >
